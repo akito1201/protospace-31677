@@ -16,9 +16,12 @@ default: &default
   username: root
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
+  host: 10.0.2.111
+
 development:
   <<: *default
   database: protospace_31677_development
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
