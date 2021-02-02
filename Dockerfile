@@ -7,5 +7,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update && apt-get install yarn
 
 WORKDIR /protospace
-COPY . .
+COPY Gemfile Gemfile.lock ./
 RUN  gem install bundler && bundle install
+COPY . .
