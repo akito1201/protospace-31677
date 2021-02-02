@@ -43,5 +43,5 @@ _proj_name = File.basename(_proj_path)
 pidfile "/var/www/#{_proj_name}.pid"
 bind "unix://#{_proj_path}/tmp/sockets/puma.sock"
 directory _proj_path
-daemonize true
+#daemonize true
 # add end
