@@ -64,5 +64,5 @@ gem 'pry-rails'
 group :production, :staging do
   gem 'rails_12factor'
   gem 'unicorn'
-  gem 'awd-sdk-s3', require: false
+  gem 'aws-sdk-s3', require: false
 end
