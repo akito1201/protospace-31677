@@ -19,6 +19,22 @@ set :branch, 'master'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/protospace-31677"
 
+# シンボリックリンクをはるファイル。(※後述)
+set :linked_files, fetch(:linked_files, []).push('config/settings.yml')
+
+# シンボリックリンクをはるフォルダ。(※後述)
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
+# Default value for keep_releases is 5
+set :keep_releases, 5
+
+# rubyのバージョン
+#set :rbenv_ruby, '2.1.3'
+set :rbenv_ruby, '2.6.5'
+
+#出力するログのレベル。
+set :log_level, :debug
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -41,17 +57,11 @@ set :deploy_to, "/var/www/protospace-31677"
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
 
-# Default value for keep_releases is 5
-  set :keep_releases, 5
+
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-# rubyのバージョン
-set :rbenv_ruby, '2.1.3'
-
-#出力するログのレベル。
-set :log_level, :debug
 
 namespace :deploy do
   desc 'Restart application'
