@@ -2,17 +2,19 @@ version: '3'
 services:
   db:
     image: mysql:5.7
-    volumes:
-      - /tmp/mysql.sock:/var/lib/mysql/data
+    #volumes:
+     # - /tmp/mysql.sock:/tmp/mysql.sock
     environment:
-      - MYSQL_USER: root
-      - MYSQL_DATABASE: protospace_31677_development
+      MYSQL_USER: root
+      MYSQL_DATABASE: protospace_31677_development
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
 
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/var/www/
+      - .:/var/www/protospace-31677
     #environment:
     #  - BUNDLE_PATH=/app/vendor/bundle
     ports:
