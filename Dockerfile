@@ -10,5 +10,4 @@ WORKDIR /var/www/protospace-31677
 COPY Gemfile Gemfile.lock ./
 RUN  gem install bundler && bundle install
 COPY . .
-EXPOSE 80
-CMD ["rails", "s", "-d", "-b", "0.0.0.0"]
+CMD ["rails", "s", "-b", "0.0.0.0"]
