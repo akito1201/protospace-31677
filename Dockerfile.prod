@@ -10,4 +10,8 @@ WORKDIR /var/www/protospace-31677
 COPY Gemfile Gemfile.lock ./
 RUN  gem install bundler && bundle install
 COPY . .
-CMD ["rails", "s", "-b", "0.0.0.0", "-e", "production"]
+
+VOLUME v-public:/var/www/protospace-31677/public
+VOLUME v-socket:/var/www/protospace-31677/tmp/sockets
+
+CMD ["rails", "s", "-e", "production"]
