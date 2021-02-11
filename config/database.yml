@@ -51,7 +51,6 @@ test:
 production:
   <<: *default
   database: protospace_31677_production
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  #socket: /var/lib/mysql/mysql.sock
-  host:  <%= ENV['DATABASE_HOST'] %>
+  username: <%= Rails.application.credentials.dig(:db, :DATABASE_USER) %>
+  password: <%= Rails.application.credentials.dig(:db, :DATABASE_PASSWORD) %>
+  host:  <%= Rails.application.credentials.dig(:db, :DATABASE_HOST) %>
