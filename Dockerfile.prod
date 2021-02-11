@@ -11,7 +11,4 @@ COPY Gemfile Gemfile.lock ./
 RUN  gem install bundler && bundle install
 COPY . .
 
-VOLUME v-public:/var/www/protospace-31677/public
-VOLUME v-socket:/var/www/protospace-31677/tmp/sockets
-
 CMD ["rails", "s", "-e", "production"]
