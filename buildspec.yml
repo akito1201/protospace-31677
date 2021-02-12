@@ -1,0 +1,13 @@
+# CodeBuildに必要な設定ファイル
+
+version: 0.1
+
+phases:
+  build:
+    commands:
+      - aws deploy push --region ap-northeast-1 --application-name protospace-31677 --s3-location s3://protospace-version/sample.zip --source src
+artifacts:
+  files:
+    - '**/*'
+  base-directory: src
+  name: sample.zip
