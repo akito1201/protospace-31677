@@ -1,13 +1,24 @@
-# CodeBuildに必要な設定ファイル
-
-version: 0.1
+version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
   build:
     commands:
-      - aws deploy push --region ap-northeast-1 --application-name protospace-31677 --s3-location s3://protospace-version/sample.zip --source src
+      - echo Building the Docker image...
+      - docker image build --file Dockerfile.prod . -t protospace:latest
+      - docker tag protospace:latest 470282350525.dkr.ecr.us-east-1.amazonaws.com/protospace:test
+      - docker image build --file docker/nginx/Dockerfile . -t nginx:latest
+      - docker tag nginx:latest 470282350525.dkr.ecr.us-east-1.amazonaws.com/nginx:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 470282350525.dkr.ecr.us-east-1.amazonaws.com/protospace:test
+      - docker push 470282350525.dkr.ecr.us-east-1.amazonaws.com/nginx:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"{rails-nginx}","imageUri":"%s"}]' 470282350525.dkr.ecr.us-east-1.amazonaws.com/protospace:latest > imagedefinitions.json
 artifacts:
   files:
-    - '**/*'
-  base-directory: src
-  name: sample.zip
+    - imagedefinitions.json
